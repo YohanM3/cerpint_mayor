@@ -19,6 +19,14 @@ CREATE TABLE municipalities (
     name VARCHAR(100) NOT NULL,
     FOREIGN KEY (state_id) REFERENCES states(id)
 ); 
+
+CREATE TABLE sales_advisors (
+cedula VARCHAR(15) NOT NULL PRIMARY KEY,
+name VARCHAR(50) NOT NULL,
+address VARCHAR(100) NOT NULL,
+number_phone VARCHAR(13) NOT NULL
+);
+
 CREATE TABLE customers (
   rif VARCHAR(20) PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
@@ -27,20 +35,18 @@ CREATE TABLE customers (
   municipality_id INT not null,
   advisor_cedula VARCHAR(15),
   FOREIGN KEY (advisor_cedula) REFERENCES sales_advisors(cedula)
+  
 );
 
-CREATE TABLE sales_advisors (
-cedula VARCHAR(10) NOT NULL PRIMARY KEY,
-name VARCHAR(50) NOT NULL,
-address VARCHAR(100) NOT NULL,
-number_phone VARCHAR(13) NOT NULL
-);
+
 
 CREATE TABLE sales (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  advisor_cedula VARCHAR(10),
+  advisor_cedula VARCHAR(15),
   customer_rif VARCHAR(20),
   total DECIMAL(10,2),
+  fecha_venta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(advisor_cedula) REFERENCES sales_advisors(cedula),
-  FOREIGN KEY(customer_rif) REFERENCES customers(rif)
+  FOREIGN KEY(customer_rif) REFERENCES customers(rif),
+  
 )
