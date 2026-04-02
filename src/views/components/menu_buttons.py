@@ -1,23 +1,27 @@
-import tkinter as tk
-from src.utils.settings import FUENTE_NORMAL
+import customtkinter as ctk
 
+class MenuButton(ctk.CTkButton):
 
-class MenuButton(tk.Button):
-    def __init__(self, parent, text, color_base, color_active, command=None):
+    def __init__(
+        self,
+        parent,
+        text,
+        color_hover,
+        command
+    ):
         super().__init__(
-            parent,
+            master=parent,
             text=text,
             command=command,
-            font=FUENTE_NORMAL,
-            bg=color_base,
-            fg="white",
-            bd=3,
-            relief="flat",
-            overrelief="flat",
-            activebackground=color_active,
-            activeforeground="white",
-            cursor="hand2",
-            anchor="center",
+            fg_color=("#F0F0F0", "#2B2B2B"),
+            hover_color=color_hover,
+            anchor="w",
+            text_color="#1C1C1C",
+            corner_radius=15,
+            height=50,
+            border_spacing=20,
+            border_width=3,
+            border_color="gray85",
+            font=("Roboto Medium", 13),
         )
-        
-        self.pack(side="top", fill="both", expand=True)
+        self.pack(side="top", fill="x", padx=15, pady=6)
