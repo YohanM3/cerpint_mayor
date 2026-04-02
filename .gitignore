@@ -14,3 +14,7 @@ database_backup/
 # Sistema
 .DS_Store
 Thumbs.db
+
+__pycache__/
+*.py[cod]
+.venv/
