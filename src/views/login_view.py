@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 
-from src.utils.settings import COLOR_FONDO, COLOR_TEXTO, FUENTE_TITULO, FUENTE_NORMAL, COLOR_PRIMARIO
+from src.utils.settings import COLOR_FONDO, COLOR_TEXTO, FUENTE_TITULO, FUENTE_NORMAL, COLOR_PRIMARIO, COLOR_SECUNDARIO
 class LoginView:
 
     def __init__(self):
@@ -43,7 +43,7 @@ class LoginView:
             highlightthickness=1,            
         )
         self.entry_cedula.config(highlightbackground="#CCCCCC", highlightcolor="#28a745")
-        self.entry_cedula.pack(pady=10, padx=50, fill="x", ipady=5)
+        self.entry_cedula.pack(pady=10, padx=50, fill="x")
 
         # INPUT DE PASSWORD Y SU LABEL
 
@@ -65,9 +65,7 @@ class LoginView:
             highlightthickness=1,
         )
         self.entry_password.config(highlightbackground="#CCCCCC", highlightcolor="#28a745")
-        self.entry_password.pack(pady=10, padx=50, fill="x", ipady=5)
-
-        self.entry_cedula.focus_set()
+        self.entry_password.pack(pady=10, padx=50, fill="x")
 
         # label de olvido contraseña
         self.label_forget_password = tk.Label(
@@ -77,6 +75,32 @@ class LoginView:
             fg=COLOR_PRIMARIO,
         )
         self.label_forget_password.pack(pady=5)
+
+        # Boton de acceso de login
+        self.login_button = tk.Button(
+            self.root,
+            text="Ingresar",
+            font=FUENTE_NORMAL,
+            bg=COLOR_SECUNDARIO,
+            fg="white",
+            activebackground="#218838",
+            activeforeground="white",
+            bd=0,
+            cursor="hand2"
+        )
+        self.login_button.pack(pady=30, padx=50, fill="x", ipady=10)
+
+        # Footer login
+
+        self.version_label = tk.Label(
+            self.root, 
+            text="v1.0.0 ∴ 2026",
+            font=FUENTE_NORMAL,
+            bg=COLOR_FONDO,
+            fg=COLOR_TEXTO
+        )
+        self.version_label.pack(side="bottom", pady=10)
+        self.entry_cedula.focus_set()
 
 if __name__=="__main__":
   app = LoginView()
