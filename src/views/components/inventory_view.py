@@ -1,7 +1,6 @@
-import tkinter as tk
+
 import customtkinter as ctk
 from src.utils.settings import FUENTE_TITULO, FUENTE_NORMAL,COLOR_SECUNDARIO
-
 
 class InventoryView(ctk.CTkFrame):
 

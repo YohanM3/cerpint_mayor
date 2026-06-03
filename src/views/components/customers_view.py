@@ -1,4 +1,4 @@
-import tkinter as tk
+
 import customtkinter as ctk
 from src.utils.settings import FUENTE_NORMAL, FUENTE_TITULO
 

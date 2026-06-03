@@ -2,7 +2,11 @@ import tkinter as tk
 import customtkinter as ctk
 from PIL import Image, ImageTk
 from src.views.components.menu_buttons import MenuButton
+from src.controllers.inventory_controller import InventoryController
 from src.controllers.customer_controller import CustomerController
+from src.controllers.sales_controller import SalesController
+from src.controllers.sellers_controller import SellersController
+from src.controllers.consults_controller import ConsultsController
 from src.utils.settings import (
     COLOR_FONDO,
     COLOR_TEXTO,
@@ -29,6 +33,10 @@ class MainDashboard:
         self.root.configure(bg=COLOR_FONDO)
         self.create_layout()
         self.customer_ctrl = CustomerController(self.content_area)
+        self.inventory_ctrl = InventoryController(self.content_area)
+        self.sales_ctrl = SalesController(self.content_area)
+        self.sellers_ctrl = SellersController(self.content_area)
+        self.consults_ctrl = ConsultsController(self.content_area)
     def create_layout(self):
         self.sidebar =tk.Frame(
             self.root,
@@ -69,11 +77,11 @@ class MainDashboard:
         MenuButton(self.sidebar, "🔍  CONSULTAS", "#FFD41D", self.show_consults)
 
     # Estos los dejas vacíos por ahora para que no den error
-    def show_sales(self): self.clear_content()
-    def show_product(self):self.clear_content()
+    def show_sales(self): self.sales_ctrl.display_view()
+    def show_product(self):self.inventory_ctrl.display_view()
     def show_customers(self):self.customer_ctrl.display_view()
-    def show_sellers(self): self.clear_content()
-    def show_consults(self): self.clear_content()  
+    def show_sellers(self): self.sellers_ctrl.display_view()
+    def show_consults(self): self.consults_ctrl.display_view()
 
 
 if __name__ == "__main__":
