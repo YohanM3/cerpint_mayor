@@ -1,5 +1,6 @@
 import customtkinter as ctk
 
+
 class MenuButton(ctk.CTkButton):
 
     def __init__(
@@ -7,21 +8,19 @@ class MenuButton(ctk.CTkButton):
         parent,
         text,
         color_hover,
-        command
+        command,
     ):
         super().__init__(
             master=parent,
             text=text,
             command=command,
-            fg_color=("#F0F0F0", "#2B2B2B"),
+            fg_color=("#F8FAFB", "#2B2B2B"),
             hover_color=color_hover,
+            text_color="#1F2937",
+            corner_radius=20,
+            height=58,
+            border_width=0,
             anchor="w",
-            text_color="#1C1C1C",
-            corner_radius=15,
-            height=50,
-            border_spacing=20,
-            border_width=3,
-            border_color="gray85",
-            font=("Roboto Medium", 13),
+            font=("Roboto Medium", 14),
         )
-        self.pack(side="top", fill="x", padx=15, pady=6)
+        self.pack(side="top", fill="x", padx=18, pady=8)

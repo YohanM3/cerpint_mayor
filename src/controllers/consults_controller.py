@@ -1,4 +1,5 @@
 from src.views.components.consults_view import ConsultsView
+from src.utils.ui_helpers import create_page_container
 
 
 class ConsultsController:
@@ -8,5 +9,6 @@ class ConsultsController:
     def display_view(self):
         for widget in self.content_area.winfo_children():
             widget.destroy()
-        self.view = ConsultsView(self.content_area)
+        page = create_page_container(self.content_area)
+        self.view = ConsultsView(page)
         self.view.pack(fill="both", expand=True)

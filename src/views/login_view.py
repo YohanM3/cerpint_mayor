@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from tkinter import messagebox
+from src.views.dashboard_view import MainDashboard
 
 from src.utils.settings import (
     COLOR_FONDO,
@@ -12,6 +13,10 @@ from src.utils.settings import (
 
 
 class LoginView:
+    def open_dashboard(self):
+        for widget in self.root.winfo_children():
+            widget.destroy()
+        MainDashboard(self.root)
 
     def __init__(self):
         ctk.set_appearance_mode("light")
@@ -156,10 +161,7 @@ class LoginView:
             self.entry_password.delete(0, "end")
             return
 
-        messagebox.showinfo(
-            "Bienvenido",
-            "Has ingresado correctamente.",
-        )
+        self.root.after_idle(self.open_dashboard)
 
     def validate_credentials(self, usuario, clave):
         # Validación temporal de ejemplo.
