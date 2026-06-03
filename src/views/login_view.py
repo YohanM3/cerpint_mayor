@@ -3,12 +3,18 @@ from tkinter import messagebox
 from src.views.dashboard_view import MainDashboard
 
 from src.utils.settings import (
+    APP_MODE,
+    COLOR_BLANCO,
+    COLOR_BORDE,
     COLOR_FONDO,
-    COLOR_TEXTO,
-    FUENTE_TITULO,
-    FUENTE_NORMAL,
     COLOR_PRIMARIO,
     COLOR_SECUNDARIO,
+    COLOR_TEXTO,
+    COLOR_TEXT_MUTED,
+    COLOR_TEXT_SECONDARY,
+    COLOR_THEME,
+    FUENTE_NORMAL,
+    FUENTE_TITULO,
 )
 
 
@@ -19,8 +25,8 @@ class LoginView:
         MainDashboard(self.root)
 
     def __init__(self):
-        ctk.set_appearance_mode("light")
-        ctk.set_default_color_theme("blue")
+        ctk.set_appearance_mode(APP_MODE)
+        ctk.set_default_color_theme(COLOR_THEME)
 
         self.root = ctk.CTk()
         self.root.title("Cerpint Mayor - Acceso")
@@ -35,10 +41,10 @@ class LoginView:
     def crear_widgets(self):
         self.container = ctk.CTkFrame(
             self.root,
-            fg_color="white",
+            fg_color=COLOR_BLANCO,
             corner_radius=25,
             border_width=1,
-            border_color="#E5E5E5",
+            border_color=COLOR_BORDE,
         )
         self.container.grid(row=0, column=0, padx=24, pady=24, sticky="nsew")
 
@@ -59,7 +65,7 @@ class LoginView:
             self.header,
             text="Bienvenido de nuevo",
             font=(FUENTE_NORMAL[0], 14),
-            text_color="#5C6773",
+            text_color=COLOR_TEXT_SECONDARY,
         )
         self.label_subtitle.pack(pady=(5, 18))
 
@@ -81,7 +87,7 @@ class LoginView:
             self.form_frame,
             text="Ingresa tus datos para continuar con el panel.",
             font=(FUENTE_NORMAL[0], 12),
-            text_color="#7A7A7A",
+            text_color=COLOR_TEXT_MUTED,
             anchor="w",
         )
         self.subtitle_label.pack(fill="x", padx=20, pady=(0, 20))
@@ -108,7 +114,7 @@ class LoginView:
             fg_color=COLOR_FONDO,
             corner_radius=12,
             border_width=1,
-            border_color="#E5E5E5",
+            border_color=COLOR_BORDE,
         )
         self.forgot_frame.pack(fill="x", padx=20, pady=(0, 20))
 
@@ -125,7 +131,7 @@ class LoginView:
             text="Ingresar",
             font=FUENTE_NORMAL,
             fg_color=COLOR_SECUNDARIO,
-            text_color="white",
+            text_color=COLOR_BLANCO,
             hover_color=COLOR_PRIMARIO,
             corner_radius=16,
             command=self.handle_login,

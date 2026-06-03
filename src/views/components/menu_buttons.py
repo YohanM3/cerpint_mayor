@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from src.utils.settings import MENU_BUTTON_BG, MENU_BUTTON_TEXT
 
 
 class MenuButton(ctk.CTkButton):
@@ -14,9 +15,9 @@ class MenuButton(ctk.CTkButton):
             master=parent,
             text=text,
             command=command,
-            fg_color=("#F8FAFB", "#2B2B2B"),
+            fg_color=MENU_BUTTON_BG,
             hover_color=color_hover,
-            text_color="#1F2937",
+            text_color=MENU_BUTTON_TEXT,
             corner_radius=20,
             height=58,
             border_width=0,

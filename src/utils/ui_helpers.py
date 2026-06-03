@@ -1,12 +1,13 @@
 import customtkinter as ctk
+from src.utils.settings import COLOR_BLANCO, COLOR_BORDE
 
 
 def create_page_container(
     parent,
-    fg_color="white",
+    fg_color=COLOR_BLANCO,
     corner_radius=25,
     border_width=1,
-    border_color="#E5E5E5",
+    border_color=COLOR_BORDE,
     padx=20,
     pady=20,
     fill="both",

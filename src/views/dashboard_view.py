@@ -8,21 +8,32 @@ from src.controllers.sales_controller import SalesController
 from src.controllers.sellers_controller import SellersController
 from src.controllers.consults_controller import ConsultsController
 from src.utils.settings import (
+    APP_MODE,
+    COLOR_BLANCO,
     COLOR_FONDO,
-    COLOR_TEXTO,
-    FUENTE_TITULO,
-    FUENTE_NORMAL,
     COLOR_PRIMARIO,
     COLOR_SECUNDARIO,
+    COLOR_THEME,
+    COLOR_TEXTO,
+    COLOR_TEXT_SECONDARY,
+    COLOR_BORDE,
+    COLOR_SIDEBAR_SEPARATOR,
     COLOR_SLIDE,
+    FUENTE_NORMAL,
+    FUENTE_TITULO,
+    MENU_HOVER_CLIENTS,
+    MENU_HOVER_CONSULTS,
+    MENU_HOVER_PRODUCTS,
+    MENU_HOVER_SALES,
+    MENU_HOVER_SELLERS,
 )
 
 
 class MainDashboard:
 
     def __init__(self, root):
-        ctk.set_appearance_mode("light")
-        ctk.set_default_color_theme("blue")
+        ctk.set_appearance_mode(APP_MODE)
+        ctk.set_default_color_theme(COLOR_THEME)
         self.root = root
         self.root.title("Cerpint Mayor - Panel de Control")
         # Obtener el ancho y alto de la pantalla disponible
@@ -67,7 +78,7 @@ class MainDashboard:
 
         self.sidebar_separator = ctk.CTkFrame(
             self.sidebar,
-            fg_color="#D9E2EC",
+            fg_color=COLOR_SIDEBAR_SEPARATOR,
             height=1,
         )
         self.sidebar_separator.pack(fill="x", padx=18, pady=(0, 20))
@@ -82,10 +93,10 @@ class MainDashboard:
 
         self.page_frame = ctk.CTkFrame(
             self.content_area,
-            fg_color="white",
+            fg_color=COLOR_BLANCO,
             corner_radius=25,
             border_width=1,
-            border_color="#E5E5E5",
+            border_color=COLOR_BORDE,
         )
         self.page_frame.pack(fill="both", expand=True, padx=20, pady=20)
 
@@ -102,7 +113,7 @@ class MainDashboard:
             self.page_frame,
             text="Selecciona una sección del menú para comenzar.",
             font=(FUENTE_NORMAL[0], 13),
-            text_color="#6B7280",
+            text_color=COLOR_TEXT_SECONDARY,
             anchor="w",
         )
         self.dashboard_subtitle.pack(fill="x", padx=20, pady=(0, 18))
@@ -127,11 +138,15 @@ class MainDashboard:
             )
             self.lbl_fallback.place(relx=0.5, rely=0.5, anchor="center")
 
-        MenuButton(self.sidebar, "📈  VENTA", "#91D06C", self.show_sales)
-        MenuButton(self.sidebar, "📦  PRODUCTOS", "#FFA239", self.show_product)
-        MenuButton(self.sidebar, "👥  CLIENTE", "#5A9CB5", self.show_customers)
-        MenuButton(self.sidebar, "👔  VENDEDOR", "#5A9CB5", self.show_sellers)
-        MenuButton(self.sidebar, "🔍  CONSULTAS", "#FFD41D", self.show_consults)
+        MenuButton(self.sidebar, "📈  VENTA", MENU_HOVER_SALES, self.show_sales)
+        MenuButton(
+            self.sidebar, "📦  PRODUCTOS", MENU_HOVER_PRODUCTS, self.show_product
+        )
+        MenuButton(self.sidebar, "👥  CLIENTE", MENU_HOVER_CLIENTS, self.show_customers)
+        MenuButton(self.sidebar, "👔  VENDEDOR", MENU_HOVER_SELLERS, self.show_sellers)
+        MenuButton(
+            self.sidebar, "🔍  CONSULTAS", MENU_HOVER_CONSULTS, self.show_consults
+        )
 
     # Estos los dejas vacíos por ahora para que no den error
     def show_sales(self):
