@@ -35,3 +35,33 @@ def create_page_container(
     )
     page.pack(fill=fill, expand=expand, padx=padx, pady=pady, **pack_kwargs)
     return page
+
+
+def debounce(widget, func, delay_ms=200):
+    """Crea una función debounced que ejecuta `func` tras `delay_ms` ms desde la
+    última llamada. `widget` se usa para programar/cancelar el `after`.
+
+    Uso:
+        cb = debounce(self, lambda: self.on_search(), 200)
+        entry.bind("<KeyRelease>", lambda e: cb())
+    """
+
+    after_id = {"id": None}
+
+    def _call(*args, **kwargs):
+        if after_id["id"]:
+            try:
+                widget.after_cancel(after_id["id"])
+            except Exception:
+                pass
+
+        def _run():
+            after_id["id"] = None
+            try:
+                func()
+            except Exception:
+                pass
+
+        after_id["id"] = widget.after(delay_ms, _run)
+
+    return _call

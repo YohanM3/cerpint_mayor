@@ -1,6 +1,7 @@
 import tkinter as tk
 import customtkinter as ctk
-from PIL import Image, ImageTk
+from PIL import Image
+from pathlib import Path
 from src.views.components.menu_buttons import MenuButton
 from src.controllers.inventory_controller import InventoryController
 from src.controllers.customer_controller import CustomerController
@@ -32,23 +33,26 @@ from src.utils.settings import (
 class MainDashboard:
 
     def __init__(self, root):
-        ctk.set_appearance_mode(APP_MODE)
-        ctk.set_default_color_theme(COLOR_THEME)
         self.root = root
         self.root.title("Cerpint Mayor - Panel de Control")
         # Obtener el ancho y alto de la pantalla disponible
         width = self.root.winfo_screenwidth()
         height = self.root.winfo_screenheight()
-        # Ajustar la geometría restando unos píxeles para la barra de tareas
-        self.root.geometry(f"{width}x{height-80}+0+0")
-        self.root.resizable(False, False)
+        # Preferir ventana maximizada y dejar que los widgets se adapten
+        try:
+            self.root.state("zoomed")
+        except Exception:
+            # fallback si state no está disponible
+            self.root.geometry(f"{width}x{height-80}+0+0")
+        self.root.resizable(True, True)
         self.root.configure(bg=COLOR_FONDO)
         self.create_layout()
-        self.customer_ctrl = CustomerController(self.content_area)
-        self.inventory_ctrl = InventoryController(self.content_area)
-        self.sales_ctrl = SalesController(self.content_area)
-        self.sellers_ctrl = SellersController(self.content_area)
-        self.consults_ctrl = ConsultsController(self.content_area)
+        # cargar controladores bajo demanda para mejorar tiempo de arranque
+        self.customer_ctrl = None
+        self.inventory_ctrl = None
+        self.sales_ctrl = None
+        self.sellers_ctrl = None
+        self.consults_ctrl = None
 
     def create_layout(self):
         self.sidebar = ctk.CTkFrame(
@@ -119,9 +123,14 @@ class MainDashboard:
         self.dashboard_subtitle.pack(fill="x", padx=20, pady=(0, 18))
 
         try:
-            self.original_logo = Image.open("assets/logo.png")
+            assets_root = Path(__file__).resolve().parents[2] / "assets"
+            logo_path = assets_root / "logo.png"
+            self.original_logo = Image.open(logo_path)
             self.resized_logo = self.original_logo.resize((420, 330), Image.LANCZOS)
-            self.final_logo_img = ImageTk.PhotoImage(self.resized_logo)
+            self.final_logo_img = ctk.CTkImage(
+                light_image=self.resized_logo,
+                size=(420, 330),
+            )
             self.lbl_welcome_logo = ctk.CTkLabel(
                 self.page_frame,
                 image=self.final_logo_img,
@@ -150,18 +159,28 @@ class MainDashboard:
 
     # Estos los dejas vacíos por ahora para que no den error
     def show_sales(self):
+        if not self.sales_ctrl:
+            self.sales_ctrl = SalesController(self.content_area)
         self.sales_ctrl.display_view()
 
     def show_product(self):
+        if not self.inventory_ctrl:
+            self.inventory_ctrl = InventoryController(self.content_area)
         self.inventory_ctrl.display_view()
 
     def show_customers(self):
+        if not self.customer_ctrl:
+            self.customer_ctrl = CustomerController(self.content_area)
         self.customer_ctrl.display_view()
 
     def show_sellers(self):
+        if not self.sellers_ctrl:
+            self.sellers_ctrl = SellersController(self.content_area)
         self.sellers_ctrl.display_view()
 
     def show_consults(self):
+        if not self.consults_ctrl:
+            self.consults_ctrl = ConsultsController(self.content_area)
         self.consults_ctrl.display_view()
 
 

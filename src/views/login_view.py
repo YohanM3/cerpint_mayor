@@ -138,6 +138,8 @@ class LoginView:
         )
         self.login_button.pack(fill="x", padx=20, pady=(0, 20), ipady=14)
 
+        self.root.bind("<Return>", lambda event: self.handle_login())
+
         self.version_label = ctk.CTkLabel(
             self.container,
             text="v1.0.0 ∴ 2026",
@@ -146,7 +148,7 @@ class LoginView:
         )
         self.version_label.pack(side="bottom", pady=(0, 18))
 
-        self.entry_cedula.focus()
+        self.root.after(10, self.entry_cedula.focus_set)
 
     def handle_login(self):
         usuario = self.entry_cedula.get().strip()

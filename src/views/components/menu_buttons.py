@@ -1,5 +1,13 @@
 import customtkinter as ctk
-from src.utils.settings import MENU_BUTTON_BG, MENU_BUTTON_TEXT
+from src.utils.settings import (
+    MENU_BUTTON_BG,
+    MENU_BUTTON_TEXT,
+    BUTTON_HEIGHT_LG,
+    BUTTON_CORNER_RADIUS,
+    SPACING_MD,
+    SPACING_SM,
+    FUENTE_NORMAL,
+)
 
 
 class MenuButton(ctk.CTkButton):
@@ -18,10 +26,10 @@ class MenuButton(ctk.CTkButton):
             fg_color=MENU_BUTTON_BG,
             hover_color=color_hover,
             text_color=MENU_BUTTON_TEXT,
-            corner_radius=20,
-            height=58,
+            corner_radius=BUTTON_CORNER_RADIUS,
+            height=BUTTON_HEIGHT_LG,
             border_width=0,
             anchor="w",
-            font=("Roboto Medium", 14),
+            font=FUENTE_NORMAL,
         )
-        self.pack(side="top", fill="x", padx=18, pady=8)
+        self.pack(side="top", fill="x", padx=SPACING_MD, pady=SPACING_SM)
