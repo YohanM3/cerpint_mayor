@@ -35,7 +35,6 @@ CREATE TABLE customers (
   municipality_id INT not null,
   advisor_cedula VARCHAR(15),
   FOREIGN KEY (advisor_cedula) REFERENCES sales_advisors(cedula)
-  
 );
 
 

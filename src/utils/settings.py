@@ -5,4 +5,4 @@ COLOR_SECUNDARIO="green3"
 COLOR_TERCEARIO="#FF3300"
 FUENTE_TITULO = ("Segoe UI", 20, "bold")
 FUENTE_NORMAL = ("Segoe UI", 13, "bold")
-COLOR_SLIDE="thistle3"
+COLOR_SLIDE = "#EAE0CF"
