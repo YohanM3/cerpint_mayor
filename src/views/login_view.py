@@ -1,107 +1,172 @@
-import tkinter as tk
+import customtkinter as ctk
 from tkinter import messagebox
 
-from src.utils.settings import COLOR_FONDO, COLOR_TEXTO, FUENTE_TITULO, FUENTE_NORMAL, COLOR_PRIMARIO, COLOR_SECUNDARIO
+from src.utils.settings import (
+    COLOR_FONDO,
+    COLOR_TEXTO,
+    FUENTE_TITULO,
+    FUENTE_NORMAL,
+    COLOR_PRIMARIO,
+    COLOR_SECUNDARIO,
+)
+
+
 class LoginView:
 
     def __init__(self):
-        self.root = tk.Tk()
+        ctk.set_appearance_mode("light")
+        ctk.set_default_color_theme("blue")
+
+        self.root = ctk.CTk()
         self.root.title("Cerpint Mayor - Acceso")
-        self.root.geometry("400x500")
-        self.root.configure(bg=COLOR_FONDO)
-        self.root.resizable(False,False)
+        self.root.geometry("460x560")
+        self.root.configure(fg_color=COLOR_FONDO)
+        self.root.resizable(False, False)
+        self.root.grid_rowconfigure(0, weight=1)
+        self.root.grid_columnconfigure(0, weight=1)
 
         self.crear_widgets()
 
     def crear_widgets(self):
-        self.label_titulo = tk.Label(
+        self.container = ctk.CTkFrame(
             self.root,
-            text="CERPINT MAYOR",
-            font=FUENTE_TITULO,
-            bg=COLOR_FONDO,
-            fg=COLOR_TEXTO,
+            fg_color="white",
+            corner_radius=25,
+            border_width=1,
+            border_color="#E5E5E5",
         )
-        self.label_titulo.pack(pady=20)
+        self.container.grid(row=0, column=0, padx=24, pady=24, sticky="nsew")
 
-        # INPUT DE USUARIO Y SU LABEL
-
-        self.label_user=tk.Label(
-            self.root,
-            text="Usuario",
-            font=FUENTE_NORMAL,
-            fg=COLOR_TEXTO
+        self.header = ctk.CTkFrame(
+            self.container, fg_color=COLOR_FONDO, corner_radius=20
         )
-        self.label_user.pack(pady=5)
-        self.entry_cedula=tk.Entry(
-            self.root,
-            font=FUENTE_NORMAL,
-            justify="left",
-            fg=COLOR_TEXTO,
-            bg="white",
-            bd=8,
-            relief="flat",
-            highlightthickness=1,            
-        )
-        self.entry_cedula.config(highlightbackground="#CCCCCC", highlightcolor="#28a745")
-        self.entry_cedula.pack(pady=10, padx=50, fill="x")
+        self.header.pack(fill="x", padx=20, pady=(20, 10))
 
-        # INPUT DE PASSWORD Y SU LABEL
-
-        self.label_password = tk.Label(
-            self.root, text="Clave de acceso",
-            font=FUENTE_NORMAL,
-            fg=COLOR_TEXTO
+        self.label_titulo = ctk.CTkLabel(
+            self.header,
+            text="Cerpint Mayor",
+            font=(FUENTE_TITULO[0], 24, "bold"),
+            text_color=COLOR_TEXTO,
         )
-        self.label_password.pack(pady=5)
-        self.entry_password = tk.Entry(
-            self.root,
+        self.label_titulo.pack(pady=(12, 0))
+
+        self.label_subtitle = ctk.CTkLabel(
+            self.header,
+            text="Bienvenido de nuevo",
+            font=(FUENTE_NORMAL[0], 14),
+            text_color="#5C6773",
+        )
+        self.label_subtitle.pack(pady=(5, 18))
+
+        self.form_frame = ctk.CTkFrame(
+            self.container, fg_color=COLOR_FONDO, corner_radius=20
+        )
+        self.form_frame.pack(fill="both", expand=True, padx=20, pady=(0, 10))
+
+        self.title_label = ctk.CTkLabel(
+            self.form_frame,
+            text="Inicia sesión",
+            font=(FUENTE_TITULO[0], 20, "bold"),
+            text_color=COLOR_TEXTO,
+            anchor="w",
+        )
+        self.title_label.pack(fill="x", padx=20, pady=(20, 10))
+
+        self.subtitle_label = ctk.CTkLabel(
+            self.form_frame,
+            text="Ingresa tus datos para continuar con el panel.",
+            font=(FUENTE_NORMAL[0], 12),
+            text_color="#7A7A7A",
+            anchor="w",
+        )
+        self.subtitle_label.pack(fill="x", padx=20, pady=(0, 20))
+
+        self.entry_cedula = ctk.CTkEntry(
+            self.form_frame,
             font=FUENTE_NORMAL,
-            justify="left",
-            fg=COLOR_TEXTO,
-            bg="white",
+            placeholder_text="Usuario",
+            corner_radius=12,
+        )
+        self.entry_cedula.pack(fill="x", padx=20, pady=(0, 15), ipady=12)
+
+        self.entry_password = ctk.CTkEntry(
+            self.form_frame,
+            font=FUENTE_NORMAL,
+            placeholder_text="Contraseña",
             show="●",
-            bd=8,
-            relief="flat",
-            highlightthickness=1,
+            corner_radius=12,
         )
-        self.entry_password.config(highlightbackground="#CCCCCC", highlightcolor="#28a745")
-        self.entry_password.pack(pady=10, padx=50, fill="x")
+        self.entry_password.pack(fill="x", padx=20, pady=(0, 10), ipady=12)
 
-        # label de olvido contraseña
-        self.label_forget_password = tk.Label(
-            self.root,
+        self.forgot_frame = ctk.CTkFrame(
+            self.form_frame,
+            fg_color=COLOR_FONDO,
+            corner_radius=12,
+            border_width=1,
+            border_color="#E5E5E5",
+        )
+        self.forgot_frame.pack(fill="x", padx=20, pady=(0, 20))
+
+        self.label_forget_password = ctk.CTkLabel(
+            self.forgot_frame,
             text="¿Olvidaste tu contraseña?",
             font=FUENTE_NORMAL,
-            fg=COLOR_PRIMARIO,
+            text_color=COLOR_PRIMARIO,
         )
-        self.label_forget_password.pack(pady=5)
+        self.label_forget_password.pack(padx=15, pady=12)
 
-        # Boton de acceso de login
-        self.login_button = tk.Button(
-            self.root,
+        self.login_button = ctk.CTkButton(
+            self.form_frame,
             text="Ingresar",
             font=FUENTE_NORMAL,
-            bg=COLOR_SECUNDARIO,
-            fg="white",
-            activebackground="#218838",
-            activeforeground="white",
-            bd=0,
-            cursor="hand2"
+            fg_color=COLOR_SECUNDARIO,
+            text_color="white",
+            hover_color=COLOR_PRIMARIO,
+            corner_radius=16,
+            command=self.handle_login,
         )
-        self.login_button.pack(pady=30, padx=50, fill="x", ipady=10)
+        self.login_button.pack(fill="x", padx=20, pady=(0, 20), ipady=14)
 
-        # Footer login
-
-        self.version_label = tk.Label(
-            self.root, 
+        self.version_label = ctk.CTkLabel(
+            self.container,
             text="v1.0.0 ∴ 2026",
             font=FUENTE_NORMAL,
-            bg=COLOR_FONDO,
-            fg=COLOR_TEXTO
+            text_color=COLOR_TEXTO,
         )
-        self.version_label.pack(side="bottom", pady=10)
-        self.entry_cedula.focus_set()
+        self.version_label.pack(side="bottom", pady=(0, 18))
 
-if __name__=="__main__":
-  app = LoginView()
-  app.root.mainloop()
+        self.entry_cedula.focus()
+
+    def handle_login(self):
+        usuario = self.entry_cedula.get().strip()
+        clave = self.entry_password.get().strip()
+
+        if not usuario or not clave:
+            messagebox.showwarning(
+                "Campos incompletos",
+                "Debes ingresar usuario y contraseña.",
+            )
+            return
+
+        if not self.validate_credentials(usuario, clave):
+            messagebox.showerror(
+                "Acceso denegado",
+                "Usuario o contraseña incorrectos.",
+            )
+            self.entry_password.delete(0, "end")
+            return
+
+        messagebox.showinfo(
+            "Bienvenido",
+            "Has ingresado correctamente.",
+        )
+
+    def validate_credentials(self, usuario, clave):
+        # Validación temporal de ejemplo.
+        # Cambia esta lógica por la base de datos cuando la tengas lista.
+        return usuario == "admin" and clave == "1234"
+
+
+if __name__ == "__main__":
+    app = LoginView()
+    app.root.mainloop()
